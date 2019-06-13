@@ -18,7 +18,7 @@ public class PlayerQuitListener implements Listener {
     }
 
     @EventHandler
-    public void onQuit(PlayerQuitEvent e) {
+    public void onQuit(PlayerQuitEvent playerQuitEvent) {
         Server self = SpigotApi.getSelfServer();
         self.getServerData().setPlayers(Bukkit.getOnlinePlayers().size());
 

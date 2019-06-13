@@ -1,5 +1,6 @@
 name: CaveCloud-Addon
-version: 2.0
+version: 2.1
 main: net.cavecloud.gameapi.Main
 author: CaveCloud
+depends: [CaveCloud]
 commands:

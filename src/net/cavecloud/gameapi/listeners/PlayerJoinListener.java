@@ -18,7 +18,7 @@ public class PlayerJoinListener implements Listener {
     }
 
     @EventHandler
-    public void onJoin(PlayerJoinEvent e) {
+    public void onJoin(PlayerJoinEvent playerJoinEvent) {
         Server self = SpigotApi.getSelfServer();
         self.getServerData().setPlayers(Bukkit.getOnlinePlayers().size());
 

@@ -15,11 +15,18 @@ public class Main extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        this.registerListener();
-        this.loadConfig();
-        this.updateData();
+        loadConfig();
 
-        System.out.println("CaveCloud Addon loaded!");
+        // Wait a few seconds to be sure, that the api is loaded.
+        Bukkit.getScheduler().runTaskLater(this, new Runnable() {
+            @Override
+            public void run() {
+                registerListener();
+                updateData();
+
+                System.out.println("CaveCloud Addon loaded!");
+            }
+        }, 1000 * 2);
     }
 
     @Override
@@ -32,12 +39,18 @@ public class Main extends JavaPlugin {
         new PlayerQuitListener(this);
     }
 
+    /*
+    Loading data from config file.
+     */
     public void loadConfig() {
         this.gamestate = getFromConfig("gamestate", "ONLINE");
         this.maxPlayers = Integer.valueOf(getFromConfig("maxPlayers", "0"));
         this.motd = getFromConfig("motd", "Message or Map");
     }
 
+    /*
+    Sending updated data to the cloud with the api.
+     */
     public void updateData() {
         Server self = SpigotApi.getSelfServer();
         self.getServerData()
@@ -49,6 +62,9 @@ public class Main extends JavaPlugin {
         SpigotApi.updateSelfServerData();
     }
 
+    /*
+    Getting values from config file with default value.
+     */
     private String getFromConfig(String path, String defaultValue) {
         if (this.getConfig().contains(path)) {
             return this.getConfig().getString(path);
